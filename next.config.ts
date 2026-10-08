@@ -5,6 +5,13 @@ const nextConfig: NextConfig = {
   experimental: {
     agentFeedback: true,
   },
+  images: {
+    remotePatterns: [
+      new URL("https://picsum.photos/**"),
+      new URL("https://fastly.picsum.photos/**"),
+      new URL("https://randomuser.me/api/portraits/**"),
+    ],
+  },
   cacheComponents: true,
   partialPrefetching: true,
   turbopack: {

@@ -4,8 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, type Variants } from "framer-motion";
-import siteData from "@/data/hair-atelier.json";
-const hero = siteData.hero;
+import type { HeroBannerData } from "@/types/hair-atelier.types";
 
 const textContainer: Variants = {
   hidden: { transition: { staggerChildren: 0.05, staggerDirection: -1 } },
@@ -14,12 +13,20 @@ const textContainer: Variants = {
 
 const textItem: Variants = {
   hidden: { opacity: 0, y: 30 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] },
+  },
 };
 
 const lineGrow: Variants = {
   hidden: { scaleX: 0, opacity: 0 },
-  show: { scaleX: 1, opacity: 1, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } },
+  show: {
+    scaleX: 1,
+    opacity: 1,
+    transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
+  },
 };
 
 function Chevron({ direction }: { direction: "left" | "right" }) {
@@ -39,8 +46,8 @@ function Chevron({ direction }: { direction: "left" | "right" }) {
   );
 }
 
-export default function HeroSection() {
-  const { slides, autoplayInterval } = hero;
+export default function HeroSection({ data }: { data: HeroBannerData }) {
+  const { slides, autoplayInterval } = data;
   const [current, setCurrent] = useState(0);
   const [paused, setPaused] = useState(false);
 
@@ -92,44 +99,58 @@ export default function HeroSection() {
                 animate={active ? "show" : "hidden"}
                 variants={textContainer}
               >
-                <motion.span variants={lineGrow} className="mb-5 block h-0.5 w-10 origin-left bg-[#e0a458]" />
-                <motion.p variants={textItem} className="mb-5 text-xs tracking-[0.3em] text-white/90 uppercase sm:text-sm">
-                  {slide.eyebrow}
+                <motion.span
+                  variants={lineGrow}
+                  className="mb-5 block h-0.5 w-10 origin-left bg-[#e0a458]"
+                />
+                <motion.p
+                  variants={textItem}
+                  className="mb-5 text-xs tracking-[0.3em] text-white/90 uppercase sm:text-sm"
+                >
+                  {slide.badge}
                 </motion.p>
                 <h1 className="font-serif text-5xl leading-[1.05] uppercase sm:text-6xl lg:text-7xl">
                   <motion.span variants={textItem} className="block text-white">
-                    {slide.titleLine1}
+                    {slide.heading.main}
                   </motion.span>
                   <motion.span
                     variants={textItem}
                     className="block bg-gradient-to-r from-[#c98a4b] via-[#f0c48c] to-[#b8763a] bg-clip-text text-transparent"
                   >
-                    {slide.titleLine2}
+                    {slide.heading.highlight}
                   </motion.span>
                 </h1>
-                <motion.p variants={textItem} className="mt-6 max-w-md text-base leading-relaxed text-white/90 sm:text-lg">
+                <motion.p
+                  variants={textItem}
+                  className="mt-6 max-w-md text-base leading-relaxed text-white/90 sm:text-lg"
+                >
                   {slide.description}
                 </motion.p>
-                <motion.div variants={textItem} whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }} className="mt-8 inline-block">
-                <Link
-                  href={slide.cta.href}
-                  tabIndex={active ? 0 : -1}
-                  className="group inline-flex items-center gap-3 rounded-md bg-gradient-to-r from-[#c98a4b] via-[#e8b47a] to-[#b8763a] px-6 py-3 text-sm font-medium text-black shadow-md transition hover:brightness-110"
+                <motion.div
+                  variants={textItem}
+                  whileHover={{ scale: 1.04 }}
+                  whileTap={{ scale: 0.97 }}
+                  className="mt-8 inline-block"
                 >
-                  {slide.cta.label}
-                  <svg
-                    aria-hidden="true"
-                    viewBox="0 0 24 24"
-                    className="h-4 w-4 transition-transform group-hover:translate-x-1"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth={2}
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
+                  <Link
+                    href={slide.cta.href}
+                    tabIndex={active ? 0 : -1}
+                    className="group inline-flex items-center gap-3 rounded-md bg-gradient-to-r from-[#c98a4b] via-[#e8b47a] to-[#b8763a] px-6 py-3 text-sm font-medium text-black shadow-md transition hover:brightness-110"
                   >
-                    <path d="M5 12h14M13 6l6 6-6 6" />
-                  </svg>
-                </Link>
+                    {slide.cta.label}
+                    <svg
+                      aria-hidden="true"
+                      viewBox="0 0 24 24"
+                      className="h-4 w-4 transition-transform group-hover:translate-x-1"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="M5 12h14M13 6l6 6-6 6" />
+                    </svg>
+                  </Link>
                 </motion.div>
               </motion.div>
             </div>
@@ -183,7 +204,10 @@ export default function HeroSection() {
                     className="absolute inset-0 origin-left bg-[#e0a458]"
                     initial={{ scaleX: paused ? 1 : 0 }}
                     animate={{ scaleX: 1 }}
-                    transition={{ duration: paused ? 0 : autoplayInterval / 1000, ease: "linear" }}
+                    transition={{
+                      duration: paused ? 0 : autoplayInterval / 1000,
+                      ease: "linear",
+                    }}
                   />
                 )}
               </span>

@@ -2,9 +2,7 @@ import type { ReactNode } from "react";
 import Image from "next/image";
 import EnquiryForm from "@/components/EnquiryForm";
 import { Reveal, Stagger, StaggerItem } from "@/components/motion";
-import siteData from "@/data/hair-atelier.json";
-
-const { infoCards, formSection, map } = siteData.contactPage;
+import type { ContactPageData } from "@/types/hair-atelier.types";
 
 const icons: Record<string, ReactNode> = {
   location: (
@@ -30,31 +28,57 @@ const icons: Record<string, ReactNode> = {
   ),
 };
 
-const goldText = "bg-gradient-to-r from-[#e8b47a] via-[#f0c48c] to-[#c98a4b] bg-clip-text text-transparent";
+const goldText =
+  "bg-gradient-to-r from-[#e8b47a] via-[#f0c48c] to-[#c98a4b] bg-clip-text text-transparent";
 
-function Eyebrow({ children, center = false }: { children: ReactNode; center?: boolean }) {
+function Eyebrow({
+  children,
+  center = false,
+}: {
+  children: ReactNode;
+  center?: boolean;
+}) {
   return (
-    <div className={`flex items-center gap-4 ${center ? "justify-center" : ""}`}>
+    <div
+      className={`flex items-center gap-4 ${center ? "justify-center" : ""}`}
+    >
       {center && <span className="h-px w-10 bg-[#e0a458]" />}
-      <p className="text-xs font-semibold tracking-[0.25em] text-[#e0a458] uppercase">{children}</p>
+      <p className="text-xs font-semibold tracking-[0.25em] text-[#e0a458] uppercase">
+        {children}
+      </p>
       <span className="h-px w-10 bg-[#e0a458]" />
     </div>
   );
 }
 
-export function ContactInfoCards() {
+export function ContactInfoCards({ data: infoCards }: { data: ContactPageData["infoCards"] }) {
   return (
     <section className="border-b border-white/5 bg-black py-12">
-      <Stagger immediate delay={0.3} className="mx-auto grid max-w-7xl gap-5 px-6 sm:grid-cols-2 lg:grid-cols-4 lg:px-10">
+      <Stagger
+        immediate
+        delay={0.3}
+        className="mx-auto grid max-w-7xl gap-5 px-6 sm:grid-cols-2 lg:grid-cols-4 lg:px-10"
+      >
         {infoCards.map((card) => {
           const body = (
             <>
               <span className="flex h-14 w-14 items-center justify-center rounded-full border border-[#e0a458] text-[#e0a458] transition group-hover:bg-[#e0a458] group-hover:text-black">
-                <svg aria-hidden="true" viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
+                <svg
+                  aria-hidden="true"
+                  viewBox="0 0 24 24"
+                  className="h-6 w-6"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={1.6}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
                   {icons[card.icon]}
                 </svg>
               </span>
-              <h3 className="mt-4 font-heading text-lg font-semibold text-white">{card.title}</h3>
+              <h3 className="mt-4 font-heading text-lg font-semibold text-white">
+                {card.title}
+              </h3>
               <p className="mt-1 text-sm leading-relaxed text-white/80">
                 {card.lines.map((line) => (
                   <span key={line} className="block">
@@ -72,7 +96,11 @@ export function ContactInfoCards() {
                 <a
                   href={card.href}
                   target={card.href.startsWith("http") ? "_blank" : undefined}
-                  rel={card.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                  rel={
+                    card.href.startsWith("http")
+                      ? "noopener noreferrer"
+                      : undefined
+                  }
                   className={cardClass}
                 >
                   {body}
@@ -88,20 +116,28 @@ export function ContactInfoCards() {
   );
 }
 
-export function ContactFormSection() {
-  const { eyebrow, titleLine1, titleLine2, description, image, form } = formSection;
+export function ContactFormSection({ data: form }: { data: ContactPageData["form"] }) {
+  const { badge, heading, description, image } = form;
 
   return (
     <section className="bg-black py-16 lg:py-20">
       <div className="mx-auto grid max-w-7xl items-stretch gap-10 px-6 lg:grid-cols-2 lg:gap-12 lg:px-10">
         <Stagger>
           <StaggerItem direction="right">
-            <Eyebrow>{eyebrow}</Eyebrow>
+            <Eyebrow>{badge}</Eyebrow>
           </StaggerItem>
-          <StaggerItem as="h2" direction="right" className="mt-4 font-heading text-4xl font-semibold text-white sm:text-5xl">
-            {titleLine1} <span className={goldText}>{titleLine2}</span>
+          <StaggerItem
+            as="h2"
+            direction="right"
+            className="mt-4 font-heading text-4xl font-semibold text-white sm:text-5xl"
+          >
+            {heading.main} <span className={goldText}>{heading.highlight}</span>
           </StaggerItem>
-          <StaggerItem as="p" direction="right" className="mt-4 max-w-md text-sm leading-relaxed text-white/80 sm:text-base">
+          <StaggerItem
+            as="p"
+            direction="right"
+            className="mt-4 max-w-md text-sm leading-relaxed text-white/80 sm:text-base"
+          >
             {description}
           </StaggerItem>
           <StaggerItem>
@@ -128,14 +164,14 @@ export function ContactFormSection() {
   );
 }
 
-export function ContactMapSection() {
+export function ContactMapSection({ data: map }: { data: ContactPageData["map"] }) {
   return (
     <section className="bg-black pb-20 lg:pb-28">
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
         <Reveal className="text-center">
-          <Eyebrow center>{map.eyebrow}</Eyebrow>
+          <Eyebrow center>{map.badge}</Eyebrow>
           <h2 className="mt-4 font-heading text-4xl font-semibold text-white sm:text-5xl">
-            {map.titleLine1} <span className={goldText}>{map.titleLine2}</span>
+            {map.heading.main} <span className={goldText}>{map.heading.highlight}</span>
           </h2>
         </Reveal>
 

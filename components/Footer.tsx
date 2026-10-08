@@ -1,8 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Stagger, StaggerItem } from "@/components/motion";
-import siteData from "@/data/hair-atelier.json";
-const data = siteData.footer;
+import type { FooterData, Heading } from "@/types/hair-atelier.types";
 
 const socialIcons: Record<string, React.ReactNode> = {
   facebook: <path d="M14 8h3V4h-3a4 4 0 0 0-4 4v2H8v4h2v7h4v-7h3l1-4h-4V8z" />,
@@ -46,18 +45,24 @@ const contactIcons: Record<string, React.ReactNode> = {
   clock: (
     <>
       <circle cx="12" cy="12" r="10" />
-      <path d="M12 6v6l4 2" fill="none" stroke="#e0a458" strokeWidth={2} strokeLinecap="round" />
+      <path
+        d="M12 6v6l4 2"
+        fill="none"
+        stroke="#e0a458"
+        strokeWidth={2}
+        strokeLinecap="round"
+      />
     </>
   ),
 };
 
-function ColumnTitle({ line1, line2 }: { line1: string; line2: string }) {
+function ColumnTitle({ heading }: { heading: Heading }) {
   return (
     <>
       <h3 className="font-heading text-2xl font-semibold text-white">
-        {line1}{" "}
+        {heading.main}{" "}
         <span className="bg-gradient-to-r from-[#e8b47a] to-[#c98a4b] bg-clip-text pr-1 italic text-transparent">
-          {line2}
+          {heading.highlight}
         </span>
       </h3>
       <span className="mt-3 mb-6 block h-0.5 w-10 bg-[#e0a458]" />
@@ -65,12 +70,15 @@ function ColumnTitle({ line1, line2 }: { line1: string; line2: string }) {
   );
 }
 
-export default function Footer() {
-  const { logo, about, socials, columns, contact, copyright } = data;
+export default function Footer({ data }: { data: FooterData }) {
+  const { logo, description, socials, columns, contact, copyright } = data;
 
   return (
     <footer className="relative z-10 border-t border-[#e0a458]/40 bg-black shadow-[0_-15px_40px_-15px_rgba(224,164,88,0.4)]">
-      <Stagger stagger={0.15} className="mx-auto grid max-w-7xl gap-12 px-6 py-10 lg:py-12 grid-cols-2 lg:grid-cols-[1.25fr_1fr_1fr_1.25fr] lg:gap-0 lg:px-10">
+      <Stagger
+        stagger={0.15}
+        className="mx-auto grid max-w-7xl gap-12 px-6 py-10 lg:py-12 grid-cols-2 lg:grid-cols-[1.25fr_1fr_1fr_1.25fr] lg:gap-0 lg:px-10"
+      >
         <StaggerItem className="col-span-2 sm:col-span-1 lg:pr-10">
           <Link href={logo.href} className="inline-block">
             <Image
@@ -81,7 +89,9 @@ export default function Footer() {
               className="h-auto w-56"
             />
           </Link>
-          <p className="mt-6 max-w-xs text-sm leading-relaxed text-white/85">{about}</p>
+          <p className="mt-6 max-w-xs text-sm leading-relaxed text-white/85">
+            {description}
+          </p>
           <div className="mt-7 flex gap-3">
             {socials.map((social) => (
               <a
@@ -110,10 +120,13 @@ export default function Footer() {
         </StaggerItem>
 
         {columns.map((column) => (
-          <StaggerItem key={column.titleLine2} className="col-span-1 lg:border-l lg:border-white/10 lg:px-10">
-            <ColumnTitle line1={column.titleLine1} line2={column.titleLine2} />
+          <StaggerItem
+            key={column.heading.highlight}
+            className="col-span-1 lg:border-l lg:border-white/10 lg:px-10"
+          >
+            <ColumnTitle heading={column.heading} />
             <ul className="space-y-3.5">
-              {column.links.map((link) => (
+              {column.list.map((link) => (
                 <li key={link.label}>
                   <Link
                     href={link.href}
@@ -140,13 +153,18 @@ export default function Footer() {
         ))}
 
         <StaggerItem className="col-span-2 sm:col-span-1 lg:border-l lg:border-white/10 lg:pl-10">
-          <ColumnTitle line1={contact.titleLine1} line2={contact.titleLine2} />
+          <ColumnTitle heading={contact.heading} />
           <ul className="space-y-5">
-            {contact.items.map((item) => {
+            {contact.list.map((item) => {
               const content = (
                 <>
                   <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#e8b47a] to-[#c98a4b] text-black">
-                    <svg aria-hidden="true" viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor">
+                    <svg
+                      aria-hidden="true"
+                      viewBox="0 0 24 24"
+                      className="h-5 w-5"
+                      fill="currentColor"
+                    >
                       {contactIcons[item.icon]}
                     </svg>
                   </span>
@@ -164,8 +182,14 @@ export default function Footer() {
                   {item.href ? (
                     <a
                       href={item.href}
-                      target={item.href.startsWith("http") ? "_blank" : undefined}
-                      rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                      target={
+                        item.href.startsWith("http") ? "_blank" : undefined
+                      }
+                      rel={
+                        item.href.startsWith("http")
+                          ? "noopener noreferrer"
+                          : undefined
+                      }
                       className="group flex items-center gap-4"
                     >
                       {content}

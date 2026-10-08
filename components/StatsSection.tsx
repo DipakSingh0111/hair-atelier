@@ -4,8 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { Stagger, StaggerItem } from "@/components/motion";
-import siteData from "@/data/hair-atelier.json";
-const data = siteData.stats;
+import type { StatsData } from "@/types/hair-atelier.types";
 
 const icons: Record<string, React.ReactNode> = {
   users: (
@@ -23,7 +22,9 @@ const icons: Record<string, React.ReactNode> = {
       <path d="M20 4 8.1 15.9M14.5 14.5 20 20M8.1 8.1 12 12" />
     </>
   ),
-  star: <path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2L12 17.3 6.4 20.2l1.1-6.2L3 9.6l6.2-.9z" />,
+  star: (
+    <path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2L12 17.3 6.4 20.2l1.1-6.2L3 9.6l6.2-.9z" />
+  ),
   calendar: (
     <>
       <rect x="3" y="5" width="18" height="16" rx="2" />
@@ -49,7 +50,15 @@ function Icon({ name, className }: { name: string; className?: string }) {
   );
 }
 
-function CountUp({ value, decimals, suffix }: { value: number; decimals: number; suffix: string }) {
+function CountUp({
+  value,
+  decimals,
+  suffix,
+}: {
+  value: number;
+  decimals: number;
+  suffix: string;
+}) {
   const ref = useRef<HTMLSpanElement>(null);
   const [display, setDisplay] = useState(0);
 
@@ -90,8 +99,8 @@ function CountUp({ value, decimals, suffix }: { value: number; decimals: number;
   );
 }
 
-export default function StatsSection() {
-  const { eyebrow, titleLine1, titleLine2, description, background, stats } = data;
+export default function StatsSection({ data }: { data: StatsData }) {
+  const { badge, heading, description, background, list: stats } = data;
 
   return (
     <section className="relative overflow-hidden bg-black py-8 lg:py-10">
@@ -106,7 +115,11 @@ export default function StatsSection() {
 
       <div className="relative mx-auto max-w-7xl px-6 text-center lg:px-10">
         <Stagger>
-          <StaggerItem direction="none" scale={0.7} className="flex items-center justify-center gap-4">
+          <StaggerItem
+            direction="none"
+            scale={0.7}
+            className="flex items-center justify-center gap-4"
+          >
             <span className="h-px w-24 bg-gradient-to-r from-transparent to-[#e0a458] sm:w-32" />
             <motion.span
               animate={{ rotate: [0, -12, 12, 0] }}
@@ -118,18 +131,27 @@ export default function StatsSection() {
             <span className="h-px w-24 bg-gradient-to-l from-transparent to-[#e0a458] sm:w-32" />
           </StaggerItem>
 
-          <StaggerItem as="p" className="mt-6 text-xs tracking-[0.3em] text-white/80 uppercase sm:text-sm">
-            {eyebrow}
+          <StaggerItem
+            as="p"
+            className="mt-6 text-xs tracking-[0.3em] text-white/80 uppercase sm:text-sm"
+          >
+            {badge}
           </StaggerItem>
 
-          <StaggerItem as="h2" className="mt-3 font-heading text-3xl font-semibold sm:text-5xl">
-            <span className="text-white">{titleLine1} </span>
+          <StaggerItem
+            as="h2"
+            className="mt-3 font-heading text-3xl font-semibold sm:text-5xl"
+          >
+            <span className="text-white">{heading.main} </span>
             <span className="bg-gradient-to-r from-[#e8b47a] via-[#f0c48c] to-[#c98a4b] bg-clip-text pr-1 italic text-transparent">
-              {titleLine2}
+              {heading.highlight}
             </span>
           </StaggerItem>
 
-          <StaggerItem as="p" className="mx-auto mt-5 max-w-2xl text-sm text-white/80 sm:text-base">
+          <StaggerItem
+            as="p"
+            className="mx-auto mt-5 max-w-2xl text-sm text-white/80 sm:text-base"
+          >
             {description}
           </StaggerItem>
         </Stagger>
@@ -137,18 +159,20 @@ export default function StatsSection() {
         <Stagger className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {stats.map((stat) => (
             <StaggerItem key={stat.label} distance={50}>
-            <div
-              className="flex h-full flex-col items-center rounded-xl border border-[#e0a458]/40 bg-black/55 px-6 py-8 backdrop-blur-sm transition hover:-translate-y-1 hover:border-[#e0a458]"
-            >
-              <span className="flex h-14 w-14 items-center justify-center rounded-full border border-[#e0a458] text-[#e0a458]">
-                <Icon name={stat.icon} className="h-6 w-6" />
-              </span>
-              <p className="mt-5 font-heading text-4xl font-bold text-[#f0c48c] lg:text-[42px]">
-                <CountUp value={stat.value} decimals={stat.decimals} suffix={stat.suffix} />
-              </p>
-              <p className="mt-2 text-sm text-white/90">{stat.label}</p>
-              <span className="mt-5 h-px w-10 bg-[#e0a458]" />
-            </div>
+              <div className="flex h-full flex-col items-center rounded-xl border border-[#e0a458]/40 bg-black/55 px-6 py-8 backdrop-blur-sm transition hover:-translate-y-1 hover:border-[#e0a458]">
+                <span className="flex h-14 w-14 items-center justify-center rounded-full border border-[#e0a458] text-[#e0a458]">
+                  <Icon name={stat.icon} className="h-6 w-6" />
+                </span>
+                <p className="mt-5 font-heading text-4xl font-bold text-[#f0c48c] lg:text-[42px]">
+                  <CountUp
+                    value={stat.value}
+                    decimals={stat.decimals}
+                    suffix={stat.suffix}
+                  />
+                </p>
+                <p className="mt-2 text-sm text-white/90">{stat.label}</p>
+                <span className="mt-5 h-px w-10 bg-[#e0a458]" />
+              </div>
             </StaggerItem>
           ))}
         </Stagger>

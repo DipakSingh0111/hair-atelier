@@ -4,8 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion, type Variants } from "framer-motion";
 import { Reveal } from "@/components/motion";
-import siteData from "@/data/hair-atelier.json";
-const data = siteData.galleryPage;
+import type { GalleryPageData, ImageData as GalleryImage } from "@/types/hair-atelier.types";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -19,9 +18,13 @@ const itemVariants: Variants = {
   show: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.55, ease } },
 };
 
-type GalleryImage = { src: string; alt: string };
-
-function Arrow({ direction, className = "h-4 w-4" }: { direction: "left" | "right"; className?: string }) {
+function Arrow({
+  direction,
+  className = "h-4 w-4",
+}: {
+  direction: "left" | "right";
+  className?: string;
+}) {
   return (
     <svg
       aria-hidden="true"
@@ -33,7 +36,13 @@ function Arrow({ direction, className = "h-4 w-4" }: { direction: "left" | "righ
       strokeLinecap="round"
       strokeLinejoin="round"
     >
-      <path d={direction === "left" ? "M19 12H5M11 6l-6 6 6 6" : "M5 12h14M13 6l6 6-6 6"} />
+      <path
+        d={
+          direction === "left"
+            ? "M19 12H5M11 6l-6 6 6 6"
+            : "M5 12h14M13 6l6 6-6 6"
+        }
+      />
     </svg>
   );
 }
@@ -50,8 +59,14 @@ function Lightbox({
   onChange: (index: number) => void;
 }) {
   const image = images[index];
-  const prev = useCallback(() => onChange((index - 1 + images.length) % images.length), [index, images.length, onChange]);
-  const next = useCallback(() => onChange((index + 1) % images.length), [index, images.length, onChange]);
+  const prev = useCallback(
+    () => onChange((index - 1 + images.length) % images.length),
+    [index, images.length, onChange],
+  );
+  const next = useCallback(
+    () => onChange((index + 1) % images.length),
+    [index, images.length, onChange],
+  );
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -89,7 +104,15 @@ function Lightbox({
         onClick={onClose}
         className="absolute top-5 right-5 flex h-11 w-11 items-center justify-center rounded-full border border-[#e0a458] text-white transition hover:bg-[#e0a458] hover:text-black"
       >
-        <svg aria-hidden="true" viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round">
+        <svg
+          aria-hidden="true"
+          viewBox="0 0 24 24"
+          className="h-5 w-5"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth={2}
+          strokeLinecap="round"
+        >
           <path d="M6 6l12 12M18 6 6 18" />
         </svg>
       </button>
@@ -124,7 +147,13 @@ function Lightbox({
               exit={{ opacity: 0 }}
               transition={{ duration: 0.5, ease }}
             >
-              <Image src={image.src} alt={image.alt} fill sizes="(min-width: 1024px) 1024px, 100vw" className="object-cover" />
+              <Image
+                src={image.src}
+                alt={image.alt}
+                fill
+                sizes="(min-width: 1024px) 1024px, 100vw"
+                className="object-cover"
+              />
             </motion.div>
           </AnimatePresence>
         </div>
@@ -145,8 +174,8 @@ function Lightbox({
   );
 }
 
-export default function GalleryGrid() {
-  const { eyebrow, titleLine1, titleLine2, description, perPage, images } = data;
+export default function GalleryGrid({ data }: { data: GalleryPageData }) {
+  const { badge, heading, description, perPage, list: images } = data;
   const totalPages = Math.ceil(images.length / perPage);
   const [page, setPage] = useState(1);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
@@ -176,18 +205,22 @@ export default function GalleryGrid() {
         <Reveal className="text-center">
           <div className="flex items-center justify-center gap-4">
             <span className="h-px w-12 bg-[#e0a458]" />
-            <p className="text-xs font-semibold tracking-[0.3em] text-[#e0a458] uppercase sm:text-sm">{eyebrow}</p>
+            <p className="text-xs font-semibold tracking-[0.3em] text-[#e0a458] uppercase sm:text-sm">
+              {badge}
+            </p>
             <span className="h-px w-12 bg-[#e0a458]" />
           </div>
 
           <h2 className="mt-5 font-heading text-4xl font-semibold sm:text-5xl">
-            <span className="text-white">{titleLine1} </span>
+            <span className="text-white">{heading.main} </span>
             <span className="bg-gradient-to-r from-[#e8b47a] via-[#f0c48c] to-[#c98a4b] bg-clip-text text-transparent">
-              {titleLine2}
+              {heading.highlight}
             </span>
           </h2>
 
-          <p className="mx-auto mt-5 max-w-2xl text-sm leading-relaxed text-white/80 sm:text-base">{description}</p>
+          <p className="mx-auto mt-5 max-w-2xl text-sm leading-relaxed text-white/80 sm:text-base">
+            {description}
+          </p>
         </Reveal>
 
         <motion.div
@@ -201,34 +234,46 @@ export default function GalleryGrid() {
         >
           {pageImages.map((image, i) => (
             <motion.div key={image.src} variants={itemVariants}>
-            <button
-              type="button"
-              onClick={() => setLightboxIndex(start + i)}
-              aria-label={`Open ${image.alt}`}
-              className="group relative block aspect-[4/3] w-full overflow-hidden rounded-lg border border-[#e0a458]/50 shadow-[0_0_20px_-10px_rgba(224,164,88,0.5)] transition lg:hover:border-[#e0a458] focus-visible:outline-2 focus-visible:outline-[#e0a458]"
-            >
-              <Image
-                src={image.src}
-                alt={image.alt}
-                fill
-                sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
-                className="object-cover transition duration-700 lg:group-hover:scale-110"
-              />
-              <span className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 transition duration-300 lg:group-hover:opacity-100">
-                <span className="flex h-12 w-12 items-center justify-center rounded-full border border-[#e0a458] bg-black/40 text-[#e0a458]">
-                  <svg aria-hidden="true" viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
-                    <circle cx="11" cy="11" r="7" />
-                    <path d="m20 20-3.5-3.5M11 8v6M8 11h6" />
-                  </svg>
+              <button
+                type="button"
+                onClick={() => setLightboxIndex(start + i)}
+                aria-label={`Open ${image.alt}`}
+                className="group relative block aspect-[4/3] w-full overflow-hidden rounded-lg border border-[#e0a458]/50 shadow-[0_0_20px_-10px_rgba(224,164,88,0.5)] transition lg:hover:border-[#e0a458] focus-visible:outline-2 focus-visible:outline-[#e0a458]"
+              >
+                <Image
+                  src={image.src}
+                  alt={image.alt}
+                  fill
+                  sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
+                  className="object-cover transition duration-700 lg:group-hover:scale-110"
+                />
+                <span className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 transition duration-300 lg:group-hover:opacity-100">
+                  <span className="flex h-12 w-12 items-center justify-center rounded-full border border-[#e0a458] bg-black/40 text-[#e0a458]">
+                    <svg
+                      aria-hidden="true"
+                      viewBox="0 0 24 24"
+                      className="h-5 w-5"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <circle cx="11" cy="11" r="7" />
+                      <path d="m20 20-3.5-3.5M11 8v6M8 11h6" />
+                    </svg>
+                  </span>
                 </span>
-              </span>
-            </button>
+              </button>
             </motion.div>
           ))}
         </motion.div>
 
         {totalPages > 1 && (
-          <nav aria-label="Gallery pagination" className="mt-12 flex items-center justify-center gap-2 sm:gap-3">
+          <nav
+            aria-label="Gallery pagination"
+            className="mt-12 flex items-center justify-center gap-2 sm:gap-3"
+          >
             <button
               type="button"
               aria-label="Previous page"
@@ -276,7 +321,12 @@ export default function GalleryGrid() {
 
       <AnimatePresence>
         {lightboxIndex !== null && (
-          <Lightbox images={images} index={lightboxIndex} onClose={closeLightbox} onChange={changeLightbox} />
+          <Lightbox
+            images={images}
+            index={lightboxIndex}
+            onClose={closeLightbox}
+            onChange={changeLightbox}
+          />
         )}
       </AnimatePresence>
     </section>

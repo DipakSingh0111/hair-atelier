@@ -2,10 +2,19 @@ import Image from "next/image";
 import Link from "next/link";
 import { CalendarIcon, LongArrowIcon } from "@/components/BlogIcons";
 import { StaggerItem } from "@/components/motion";
-import { blogHref, formatBlogDate, type BlogPost } from "@/lib/blogs";
+import type { BlogPost } from "@/types/hair-atelier.types";
+
+const dateFormatter = new Intl.DateTimeFormat("en-US", {
+  month: "short",
+  day: "2-digit",
+  year: "numeric",
+  timeZone: "UTC",
+});
+
+export const formatBlogDate = (date: string) => dateFormatter.format(new Date(date));
 
 export default function BlogCard({ post, readMoreLabel }: { post: BlogPost; readMoreLabel: string }) {
-  const href = blogHref(post);
+  const href = `/blogs/${post.slug}`;
 
   return (
     <StaggerItem distance={50}>

@@ -1,16 +1,22 @@
 import type { ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowIcon, CalendarIcon, ChevronRightIcon, CrownIcon } from "@/components/BlogIcons";
+import {
+  ArrowIcon,
+  CalendarIcon,
+  ChevronRightIcon,
+  CrownIcon,
+} from "@/components/BlogIcons";
+import { formatBlogDate } from "@/components/BlogCard";
 import { Stagger, StaggerItem } from "@/components/motion";
-import siteData from "@/data/hair-atelier.json";
-import { blogHref, formatBlogDate, getBlogPost, getCategorySlug, getPostsByCategory, getRecentPosts } from "@/lib/blogs";
-
-const sidebar = siteData.blogSidebar;
+import type { BlogPost, BlogSidebarData } from "@/types/hair-atelier.types";
 
 function Widget({ title, children }: { title: string; children: ReactNode }) {
   return (
-    <StaggerItem direction="left" className="rounded-xl border border-white/10 bg-[#0f0e0d] p-5">
+    <StaggerItem
+      direction="left"
+      className="rounded-xl border border-white/10 bg-[#0f0e0d] p-5"
+    >
       <h3 className="font-heading text-lg font-semibold text-white">{title}</h3>
       <span className="mt-2 mb-4 block h-0.5 w-8 bg-[#e0a458]" />
       {children}
@@ -18,31 +24,38 @@ function Widget({ title, children }: { title: string; children: ReactNode }) {
   );
 }
 
-export default function BlogSidebar({ currentSlug }: { currentSlug?: string }) {
-  const recent = getRecentPosts(sidebar.recentCount, currentSlug);
-  const currentPost = currentSlug ? getBlogPost(currentSlug) : undefined;
+export default function BlogSidebar({
+  data: sidebar,
+  posts,
+  currentSlug,
+}: {
+  data: BlogSidebarData;
+  posts: BlogPost[];
+  currentSlug?: string;
+}) {
+  const recent = posts
+    .filter((post) => post.slug !== currentSlug)
+    .sort((a, b) => b.date.localeCompare(a.date))
+    .slice(0, sidebar.recentCount);
   const categories = sidebar.categories
-    .map((name) => ({
-      name,
-      posts: getPostsByCategory(name).map((post) => ({
-        slug: post.slug,
-        title: post.title,
-        date: post.date,
-        dateLabel: formatBlogDate(post.date),
-        image: post.image,
-      })),
-    }))
+    .map((name) => ({ name, posts: posts.filter((post) => post.category === name) }))
     .filter((category) => category.posts.length > 0);
   const { cta } = sidebar;
 
   return (
-    <Stagger as="aside" stagger={0.15} delay={0.2} immediate className="space-y-6">
+    <Stagger
+      as="aside"
+      stagger={0.15}
+      delay={0.2}
+      immediate
+      className="space-y-6"
+    >
       <Widget title={sidebar.recentTitle}>
         <ul className="space-y-4">
           {recent.map((post) => (
             <li key={post.id}>
               <Link
-                href={blogHref(post)}
+                href={`/blogs/${post.slug}`}
                 className="group flex items-center gap-3"
               >
                 <span className="relative h-16 w-16 shrink-0 overflow-hidden rounded-lg border border-[#e0a458]/40">
@@ -79,9 +92,7 @@ export default function BlogSidebar({ currentSlug }: { currentSlug?: string }) {
                 href={`/blogs/${category.posts[0].slug}`}
                 className="group flex w-full items-center justify-between py-3 text-left text-sm text-white/85 transition hover:text-[#e0a458]"
               >
-                <span className="flex items-center gap-2">
-                  {category.name}
-                </span>
+                <span className="flex items-center gap-2">{category.name}</span>
                 <ChevronRightIcon className="h-4 w-4 text-white/40 transition group-hover:translate-x-1 group-hover:text-[#e0a458]" />
               </Link>
             </li>
@@ -104,12 +115,12 @@ export default function BlogSidebar({ currentSlug }: { currentSlug?: string }) {
         <div className="relative max-w-[70%]">
           <p className="flex items-center gap-2 text-xs font-semibold tracking-[0.2em] text-[#e0a458] uppercase">
             <CrownIcon />
-            {cta.eyebrow}
+            {cta.badge}
           </p>
           <h3 className="mt-3 font-heading text-2xl leading-tight font-semibold text-white">
-            {cta.titleLine1}
+            {cta.heading.main}
             <span className="block bg-gradient-to-r from-[#e8b47a] to-[#c98a4b] bg-clip-text text-transparent">
-              {cta.titleLine2}
+              {cta.heading.highlight}
             </span>
           </h3>
           <p className="mt-3 text-xs leading-relaxed text-white/80">

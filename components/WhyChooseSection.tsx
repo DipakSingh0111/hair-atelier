@@ -1,6 +1,5 @@
 import { Reveal, Stagger, StaggerItem } from "@/components/motion";
-import siteData from "@/data/hair-atelier.json";
-const data = siteData.whyChoose;
+import type { WhyChooseUsData } from "@/types/hair-atelier.types";
 
 const icons: Record<string, React.ReactNode> = {
   scissors: (
@@ -54,8 +53,8 @@ const icons: Record<string, React.ReactNode> = {
   ),
 };
 
-export default function WhyChooseSection() {
-  const { eyebrow, titleLine1, titleLine2, description, features } = data;
+export default function WhyChooseSection({ data }: { data: WhyChooseUsData }) {
+  const { badge, heading, description, list: features } = data;
 
   return (
     <section className="bg-black py-8 lg:py-10">
@@ -75,13 +74,13 @@ export default function WhyChooseSection() {
               <path d="M6 3h12l4 6-10 12L2 9z" />
               <path d="M2 9h20" />
             </svg>
-            {eyebrow}
+            {badge}
           </span>
 
           <h2 className="mt-6 font-heading text-4xl leading-tight font-semibold sm:text-5xl">
-            <span className="block text-white">{titleLine1}</span>
+            <span className="block text-white">{heading.main}</span>
             <span className="block bg-gradient-to-r from-[#e8b47a] via-[#f0c48c] to-[#c98a4b] bg-clip-text pr-1 italic text-transparent">
-              {titleLine2}
+              {heading.highlight}
             </span>
           </h2>
 
@@ -90,32 +89,37 @@ export default function WhyChooseSection() {
           </p>
         </Reveal>
 
-        <Stagger stagger={0.08} className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <Stagger
+          stagger={0.08}
+          className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4"
+        >
           {features.map((feature) => (
             <StaggerItem key={feature.title} scale={0.92}>
-            <article
-              className="group flex h-full gap-4 rounded-xl border border-[#e0a458]/40 bg-gradient-to-br from-[#16110b] via-black to-black p-6 transition duration-300 hover:-translate-y-1 hover:border-[#e0a458] hover:shadow-[0_0_30px_-10px_rgba(224,164,88,0.55)]"
-            >
-              <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-[#e0a458] text-[#e0a458] transition group-hover:bg-[#e0a458] group-hover:text-black">
-                <svg
-                  aria-hidden="true"
-                  viewBox="0 0 24 24"
-                  className="h-6 w-6"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth={1.5}
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  {icons[feature.icon]}
-                </svg>
-              </span>
-              <div>
-                <h3 className="font-heading text-lg font-semibold text-white">{feature.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-white/70">{feature.description}</p>
-                <span className="mt-4 block h-0.5 w-6 bg-[#e0a458] transition-all duration-300 group-hover:w-12" />
-              </div>
-            </article>
+              <article className="group flex h-full gap-4 rounded-xl border border-[#e0a458]/40 bg-gradient-to-br from-[#16110b] via-black to-black p-6 transition duration-300 hover:-translate-y-1 hover:border-[#e0a458] hover:shadow-[0_0_30px_-10px_rgba(224,164,88,0.55)]">
+                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-[#e0a458] text-[#e0a458] transition group-hover:bg-[#e0a458] group-hover:text-black">
+                  <svg
+                    aria-hidden="true"
+                    viewBox="0 0 24 24"
+                    className="h-6 w-6"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth={1.5}
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    {icons[feature.icon]}
+                  </svg>
+                </span>
+                <div>
+                  <h3 className="font-heading text-lg font-semibold text-white">
+                    {feature.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-white/70">
+                    {feature.description}
+                  </p>
+                  <span className="mt-4 block h-0.5 w-6 bg-[#e0a458] transition-all duration-300 group-hover:w-12" />
+                </div>
+              </article>
             </StaggerItem>
           ))}
         </Stagger>

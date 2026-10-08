@@ -5,8 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
-import siteData from "@/data/hair-atelier.json";
-const navbar = siteData.navbar;
+import type { HeaderData } from "@/types/hair-atelier.types";
 
 function ArrowIcon() {
   return (
@@ -25,10 +24,10 @@ function ArrowIcon() {
   );
 }
 
-export default function Navbar() {
+export default function Navbar({ data }: { data: HeaderData }) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
-  const { logo, links, cta } = navbar;
+  const { logo, menu: links, cta } = data;
 
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);
@@ -63,7 +62,12 @@ export default function Navbar() {
         <motion.ul
           initial="hidden"
           animate="show"
-          variants={{ hidden: {}, show: { transition: { staggerChildren: 0.07, delayChildren: 0.25 } } }}
+          variants={{
+            hidden: {},
+            show: {
+              transition: { staggerChildren: 0.07, delayChildren: 0.25 },
+            },
+          }}
           className="hidden items-center gap-10 lg:flex"
         >
           {links.map((link) => {
@@ -71,7 +75,10 @@ export default function Navbar() {
             return (
               <motion.li
                 key={link.href}
-                variants={{ hidden: { opacity: 0, y: -12 }, show: { opacity: 1, y: 0 } }}
+                variants={{
+                  hidden: { opacity: 0, y: -12 },
+                  show: { opacity: 1, y: 0 },
+                }}
                 className="relative"
               >
                 <Link
@@ -120,9 +127,15 @@ export default function Navbar() {
           onClick={() => setOpen((v) => !v)}
           className="flex h-10 w-10 flex-col items-center justify-center gap-1.5 lg:hidden"
         >
-          <span className={`h-0.5 w-6 bg-[#e0a458] transition ${open ? "translate-y-2 rotate-45" : ""}`} />
-          <span className={`h-0.5 w-6 bg-[#e0a458] transition ${open ? "opacity-0" : ""}`} />
-          <span className={`h-0.5 w-6 bg-[#e0a458] transition ${open ? "-translate-y-2 -rotate-45" : ""}`} />
+          <span
+            className={`h-0.5 w-6 bg-[#e0a458] transition ${open ? "translate-y-2 rotate-45" : ""}`}
+          />
+          <span
+            className={`h-0.5 w-6 bg-[#e0a458] transition ${open ? "opacity-0" : ""}`}
+          />
+          <span
+            className={`h-0.5 w-6 bg-[#e0a458] transition ${open ? "-translate-y-2 -rotate-45" : ""}`}
+          />
         </button>
       </nav>
 
@@ -139,11 +152,22 @@ export default function Navbar() {
             <motion.ul
               initial="hidden"
               animate="show"
-              variants={{ hidden: {}, show: { transition: { staggerChildren: 0.05, delayChildren: 0.1 } } }}
+              variants={{
+                hidden: {},
+                show: {
+                  transition: { staggerChildren: 0.05, delayChildren: 0.1 },
+                },
+              }}
               className="flex flex-col px-6"
             >
               {links.map((link) => (
-                <motion.li key={link.href} variants={{ hidden: { opacity: 0, x: -16 }, show: { opacity: 1, x: 0 } }}>
+                <motion.li
+                  key={link.href}
+                  variants={{
+                    hidden: { opacity: 0, x: -16 },
+                    show: { opacity: 1, x: 0 },
+                  }}
+                >
                   <Link
                     href={link.href}
                     onClick={() => setOpen(false)}

@@ -4,14 +4,17 @@ import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { Reveal, Stagger, StaggerItem } from "@/components/motion";
-import siteData from "@/data/hair-atelier.json";
+import type { GalleryData, ImageData as GalleryImage } from "@/types/hair-atelier.types";
 
-const data = siteData.gallery;
 const rowGrid = ["sm:grid-cols-4", "sm:grid-cols-5"];
 
-type GalleryImage = { src: string; alt: string };
-
-function Arrow({ direction, className = "h-4 w-4" }: { direction: "left" | "right"; className?: string }) {
+function Arrow({
+  direction,
+  className = "h-4 w-4",
+}: {
+  direction: "left" | "right";
+  className?: string;
+}) {
   return (
     <svg
       aria-hidden="true"
@@ -23,7 +26,13 @@ function Arrow({ direction, className = "h-4 w-4" }: { direction: "left" | "righ
       strokeLinecap="round"
       strokeLinejoin="round"
     >
-      <path d={direction === "left" ? "M19 12H5M11 6l-6 6 6 6" : "M5 12h14M13 6l6 6-6 6"} />
+      <path
+        d={
+          direction === "left"
+            ? "M19 12H5M11 6l-6 6 6 6"
+            : "M5 12h14M13 6l6 6-6 6"
+        }
+      />
     </svg>
   );
 }
@@ -40,8 +49,14 @@ function Lightbox({
   onChange: (index: number) => void;
 }) {
   const image = images[index];
-  const prev = useCallback(() => onChange((index - 1 + images.length) % images.length), [index, images.length, onChange]);
-  const next = useCallback(() => onChange((index + 1) % images.length), [index, images.length, onChange]);
+  const prev = useCallback(
+    () => onChange((index - 1 + images.length) % images.length),
+    [index, images.length, onChange],
+  );
+  const next = useCallback(
+    () => onChange((index + 1) % images.length),
+    [index, images.length, onChange],
+  );
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -79,7 +94,15 @@ function Lightbox({
         onClick={onClose}
         className="absolute top-5 right-5 flex h-11 w-11 items-center justify-center rounded-full border border-[#e0a458] text-white transition hover:bg-[#e0a458] hover:text-black"
       >
-        <svg aria-hidden="true" viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round">
+        <svg
+          aria-hidden="true"
+          viewBox="0 0 24 24"
+          className="h-5 w-5"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth={2}
+          strokeLinecap="round"
+        >
           <path d="M6 6l12 12M18 6 6 18" />
         </svg>
       </button>
@@ -114,7 +137,13 @@ function Lightbox({
               exit={{ opacity: 0 }}
               transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
             >
-              <Image src={image.src} alt={image.alt} fill sizes="(min-width: 1024px) 1024px, 100vw" className="object-cover" />
+              <Image
+                src={image.src}
+                alt={image.alt}
+                fill
+                sizes="(min-width: 1024px) 1024px, 100vw"
+                className="object-cover"
+              />
             </motion.div>
           </AnimatePresence>
         </div>
@@ -135,14 +164,17 @@ function Lightbox({
   );
 }
 
-export default function GallerySection() {
-  const { eyebrow, titleLine1, titleLine2, description, rows } = data;
+export default function GallerySection({ data }: { data: GalleryData }) {
+  const { badge, heading, description, rows } = data;
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
   const allImages = rows.flat();
 
   const closeLightbox = useCallback(() => setLightboxIndex(null), []);
-  const changeLightbox = useCallback((index: number) => setLightboxIndex(index), []);
+  const changeLightbox = useCallback(
+    (index: number) => setLightboxIndex(index),
+    [],
+  );
 
   return (
     <section className="bg-black py-8 lg:py-10">
@@ -163,24 +195,32 @@ export default function GallerySection() {
               <circle cx="9" cy="10" r="1.5" />
               <path d="m21 16-5-5-9 9" />
             </svg>
-            {eyebrow}
+            {badge}
           </span>
 
           <h2 className="mt-6 font-heading text-4xl leading-tight font-semibold sm:text-5xl">
-            <span className="text-white">{titleLine1} </span>
+            <span className="text-white">{heading.main} </span>
             <span className="bg-gradient-to-r from-[#e8b47a] via-[#f0c48c] to-[#c98a4b] bg-clip-text pr-1 italic text-transparent">
-              {titleLine2}
+              {heading.highlight}
             </span>
           </h2>
 
-          <p className="mx-auto mt-4 max-w-xl text-sm text-white/80 sm:text-base">{description}</p>
+          <p className="mx-auto mt-4 max-w-xl text-sm text-white/80 sm:text-base">
+            {description}
+          </p>
         </Reveal>
 
         <div className="mt-12 space-y-4">
           {rows.map((row, rowIndex) => (
-            <Stagger key={rowIndex} stagger={0.08} className={`grid grid-cols-2 gap-4 ${rowGrid[rowIndex % rowGrid.length]}`}>
+            <Stagger
+              key={rowIndex}
+              stagger={0.08}
+              className={`grid grid-cols-2 gap-4 ${rowGrid[rowIndex % rowGrid.length]}`}
+            >
               {row.map((image) => {
-                const globalIndex = allImages.findIndex((img) => img.src === image.src);
+                const globalIndex = allImages.findIndex(
+                  (img) => img.src === image.src,
+                );
                 return (
                   <StaggerItem key={image.src} scale={0.85} distance={20}>
                     <button
@@ -210,7 +250,12 @@ export default function GallerySection() {
 
       <AnimatePresence>
         {lightboxIndex !== null && (
-          <Lightbox images={allImages} index={lightboxIndex} onClose={closeLightbox} onChange={changeLightbox} />
+          <Lightbox
+            images={allImages}
+            index={lightboxIndex}
+            onClose={closeLightbox}
+            onChange={changeLightbox}
+          />
         )}
       </AnimatePresence>
     </section>

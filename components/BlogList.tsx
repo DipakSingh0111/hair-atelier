@@ -1,13 +1,14 @@
-"use client";
-
 import BlogCard from "@/components/BlogCard";
 import { Stagger } from "@/components/motion";
-import siteData from "@/data/hair-atelier.json";
-import { blogPosts } from "@/lib/blogs";
+import type { BlogNewsData, BlogPost } from "@/types/hair-atelier.types";
 
-const { readMoreLabel, emptyMessage, clearFiltersLabel } = siteData.blogs;
+type BlogGridProps = {
+  posts: BlogPost[];
+  readMoreLabel: string;
+  emptyMessage: string;
+};
 
-export function BlogGrid({ posts = blogPosts }: { posts?: typeof blogPosts }) {
+export function BlogGrid({ posts, readMoreLabel, emptyMessage }: BlogGridProps) {
   if (posts.length === 0) {
     return (
       <p className="mt-12 rounded-2xl border border-white/10 bg-white/[0.03] py-16 text-center text-white/70">
@@ -25,6 +26,6 @@ export function BlogGrid({ posts = blogPosts }: { posts?: typeof blogPosts }) {
   );
 }
 
-export default function BlogList() {
-  return <BlogGrid />;
+export default function BlogList({ data }: { data: BlogNewsData }) {
+  return <BlogGrid posts={data.posts} readMoreLabel={data.readMoreLabel} emptyMessage={data.emptyMessage} />;
 }

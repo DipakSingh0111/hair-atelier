@@ -2,15 +2,7 @@
 
 import { useState, type FormEvent, type ReactNode } from "react";
 import { useRouter } from "next/navigation";
-
-export type EnquiryFormContent = {
-  fields: { name: string; phone: string; email: string; date?: string; service: string; message: string };
-  services: string[];
-  submitLabel: string;
-  submittingLabel: string;
-  privacyNote?: string;
-  errors: { name: string; phone: string; email: string; service: string; message?: string };
-};
+import type { EnquiryFormContent } from "@/types/hair-atelier.types";
 
 type EnquiryFormProps = {
   content: EnquiryFormContent;

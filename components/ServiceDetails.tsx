@@ -5,12 +5,7 @@ import Image from "next/image";
 import { Reveal, Stagger, StaggerItem } from "@/components/motion";
 import Lightbox from "@/components/Lightbox";
 import { AnimatePresence } from "framer-motion";
-import siteData from "@/data/hair-atelier.json";
-
-const { overviewEyebrow, processEyebrow } = siteData.serviceDetails;
-
-type ServiceItems = typeof siteData.serviceDetails.items;
-export type ServiceDetail = ServiceItems[keyof ServiceItems];
+import type { ServiceDetail } from "@/types/hair-atelier.types";
 
 const icons: Record<string, ReactNode> = {
   scissors: (
@@ -100,7 +95,9 @@ const icons: Record<string, ReactNode> = {
       <path d="M4 20c3-5 7-8 11-10" />
     </>
   ),
-  heart: <path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7a4.3 4.3 0 0 1 7.5 2.8C19.5 15.4 12 20 12 20z" />,
+  heart: (
+    <path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7a4.3 4.3 0 0 1 7.5 2.8C19.5 15.4 12 20 12 20z" />
+  ),
   user: (
     <>
       <circle cx="12" cy="8" r="4" />
@@ -126,29 +123,53 @@ function Icon({ name, className }: { name: string; className?: string }) {
   );
 }
 
-function Eyebrow({ children, center = false }: { children: ReactNode; center?: boolean }) {
+function Eyebrow({
+  children,
+  center = false,
+}: {
+  children: ReactNode;
+  center?: boolean;
+}) {
   return (
-    <div className={`flex items-center gap-4 ${center ? "justify-center" : ""}`}>
-      <p className="text-xs font-semibold tracking-[0.25em] text-[#e0a458] uppercase">{children}</p>
+    <div
+      className={`flex items-center gap-4 ${center ? "justify-center" : ""}`}
+    >
+      <p className="text-xs font-semibold tracking-[0.25em] text-[#e0a458] uppercase">
+        {children}
+      </p>
       <span className="h-px w-10 bg-[#e0a458]" />
     </div>
   );
 }
 
-const goldText = "bg-gradient-to-r from-[#e8b47a] via-[#f0c48c] to-[#c98a4b] bg-clip-text text-transparent";
+const goldText =
+  "bg-gradient-to-r from-[#e8b47a] via-[#f0c48c] to-[#c98a4b] bg-clip-text text-transparent";
 
-export default function ServiceDetails({ service }: { service: ServiceDetail }) {
+type ServiceDetailsProps = {
+  service: ServiceDetail;
+  overviewBadge: string;
+  processBadge: string;
+};
+
+export default function ServiceDetails({ service, overviewBadge, processBadge }: ServiceDetailsProps) {
   const { overview, process } = service;
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
   const closeLightbox = useCallback(() => setLightboxIndex(null), []);
-  const changeLightbox = useCallback((index: number) => setLightboxIndex(index), []);
+  const changeLightbox = useCallback(
+    (index: number) => setLightboxIndex(index),
+    [],
+  );
 
   return (
     <>
       <section className="bg-black py-16 lg:py-24">
         <div className="mx-auto grid max-w-7xl items-center gap-14 px-6 lg:grid-cols-[1fr_1.1fr] lg:px-10">
-          <Reveal direction="right" distance={60} className="relative mx-auto w-full max-w-lg pt-4 pr-14 pb-10 pl-4 sm:pr-24">
+          <Reveal
+            direction="right"
+            distance={60}
+            className="relative mx-auto w-full max-w-lg pt-4 pr-14 pb-10 pl-4 sm:pr-24"
+          >
             <Reveal
               direction="right"
               distance={30}
@@ -184,32 +205,43 @@ export default function ServiceDetails({ service }: { service: ServiceDetail }) 
 
           <Stagger>
             <StaggerItem direction="left">
-              <Eyebrow>{overviewEyebrow}</Eyebrow>
+              <Eyebrow>{overviewBadge}</Eyebrow>
             </StaggerItem>
-            <StaggerItem as="h2" direction="left" className="mt-4 font-heading text-4xl leading-tight font-semibold text-white sm:text-5xl">
-              <span className="block">{overview.titleLine1}</span>
+            <StaggerItem
+              as="h2"
+              direction="left"
+              className="mt-4 font-heading text-4xl leading-tight font-semibold text-white sm:text-5xl"
+            >
+              <span className="block">{overview.heading.main}</span>
               <span className="block">
-                {overview.titleLine2Prefix} <span className={goldText}>{overview.titleLine2Highlight}</span>
+                {overview.heading.middle}{" "}
+                <span className={goldText}>{overview.heading.highlight}</span>
               </span>
             </StaggerItem>
-            <StaggerItem as="p" direction="left" className="mt-5 text-[15px] leading-relaxed text-white/80">
+            <StaggerItem
+              as="p"
+              direction="left"
+              className="mt-5 text-[15px] leading-relaxed text-white/80"
+            >
               {overview.description}
             </StaggerItem>
 
             <div className="mt-8 grid gap-4 sm:grid-cols-2">
               {overview.highlights.map((item) => (
                 <StaggerItem key={item.title} scale={0.9} distance={20}>
-                <div
-                  className="group flex h-full items-center gap-4 rounded-xl border border-white/10 bg-white/[0.03] p-4 transition hover:border-[#e0a458]/70"
-                >
-                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-[#e0a458] text-[#e0a458] transition group-hover:bg-[#e0a458] group-hover:text-black">
-                    <Icon name={item.icon} className="h-6 w-6" />
-                  </span>
-                  <div>
-                    <h3 className="font-heading font-semibold text-white">{item.title}</h3>
-                    <p className="mt-0.5 text-xs text-white/65">{item.description}</p>
+                  <div className="group flex h-full items-center gap-4 rounded-xl border border-white/10 bg-white/[0.03] p-4 transition hover:border-[#e0a458]/70">
+                    <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-[#e0a458] text-[#e0a458] transition group-hover:bg-[#e0a458] group-hover:text-black">
+                      <Icon name={item.icon} className="h-6 w-6" />
+                    </span>
+                    <div>
+                      <h3 className="font-heading font-semibold text-white">
+                        {item.title}
+                      </h3>
+                      <p className="mt-0.5 text-xs text-white/65">
+                        {item.description}
+                      </p>
+                    </div>
                   </div>
-                </div>
                 </StaggerItem>
               ))}
             </div>
@@ -220,61 +252,99 @@ export default function ServiceDetails({ service }: { service: ServiceDetail }) 
       <section className="bg-black pb-20 lg:pb-28">
         <div className="mx-auto max-w-7xl px-6 lg:px-10">
           <Reveal className="text-center">
-            <Eyebrow center>{processEyebrow}</Eyebrow>
+            <Eyebrow center>{processBadge}</Eyebrow>
             <h2 className="mt-4 font-heading text-3xl font-semibold text-white sm:text-5xl">
-              {process.titleLine1} <span className={goldText}>{process.titleLine2}</span>
+              {process.heading.main}{" "}
+              <span className={goldText}>{process.heading.highlight}</span>
             </h2>
           </Reveal>
 
-          <Stagger as="ol" stagger={0.15} className="mt-12 grid grid-cols-2 gap-4 sm:gap-10 lg:grid-cols-[1fr_auto_1fr_auto_1fr_auto_1fr] lg:gap-4">
+          <Stagger
+            as="ol"
+            stagger={0.15}
+            className="mt-12 grid grid-cols-2 gap-4 sm:gap-10 lg:grid-cols-[1fr_auto_1fr_auto_1fr_auto_1fr] lg:gap-4"
+          >
             {process.steps.map((step, i) => (
               <Fragment key={step.title}>
                 {i > 0 && (
-                  <StaggerItem as="li" direction="right" distance={20} className="hidden items-start pt-5 text-[#e0a458] lg:flex">
-                    <svg aria-hidden="true" viewBox="0 0 24 24" className="h-6 w-8" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
+                  <StaggerItem
+                    as="li"
+                    direction="right"
+                    distance={20}
+                    className="hidden items-start pt-5 text-[#e0a458] lg:flex"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      viewBox="0 0 24 24"
+                      className="h-6 w-8"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth={1.5}
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
                       <path d="M2 12h19M16 7l5 5-5 5" />
                     </svg>
                   </StaggerItem>
                 )}
-                <StaggerItem as="li" className="group flex flex-col items-center text-center">
+                <StaggerItem
+                  as="li"
+                  className="group flex flex-col items-center text-center"
+                >
                   <span className="flex h-16 w-16 items-center justify-center rounded-full border border-[#e0a458] text-[#e0a458] transition group-hover:bg-[#e0a458] group-hover:text-black">
                     <Icon name={step.icon} className="h-7 w-7" />
                   </span>
                   <span className="mt-3 font-heading text-2xl font-bold text-[#e0a458]">
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <h3 className="font-heading text-lg font-semibold text-white">{step.title}</h3>
-                  <p className="mt-2 max-w-[15rem] text-sm leading-relaxed text-white/75">{step.description}</p>
+                  <h3 className="font-heading text-lg font-semibold text-white">
+                    {step.title}
+                  </h3>
+                  <p className="mt-2 max-w-[15rem] text-sm leading-relaxed text-white/75">
+                    {step.description}
+                  </p>
                 </StaggerItem>
               </Fragment>
             ))}
           </Stagger>
 
-          <Stagger stagger={0.1} className="mt-12 grid grid-cols-2 gap-4 lg:grid-cols-4">
+          <Stagger
+            stagger={0.1}
+            className="mt-12 grid grid-cols-2 gap-4 lg:grid-cols-4"
+          >
             {process.images.map((image, index) => (
               <StaggerItem key={image.src} scale={0.88} distance={20}>
-              <button
-                type="button"
-                aria-label={`Open image`}
-                onClick={() => setLightboxIndex(index)}
-                className="group relative block aspect-[4/3] w-full overflow-hidden rounded-lg border border-[#e0a458]/60 shadow-[0_0_20px_-10px_rgba(224,164,88,0.5)] transition lg:hover:border-[#e0a458]"
-              >
-                <Image
-                  src={image.src}
-                  alt={image.alt}
-                  fill
-                  sizes="(min-width: 1024px) 25vw, 50vw"
-                  className="object-cover transition duration-700 lg:group-hover:scale-110"
-                />
-                <span className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 transition duration-300 lg:group-hover:opacity-100">
-                  <span className="flex h-12 w-12 items-center justify-center rounded-full border border-[#e0a458] bg-black/40 text-[#e0a458]">
-                    <svg aria-hidden="true" viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
-                      <circle cx="11" cy="11" r="7" />
-                      <path d="m20 20-3.5-3.5M11 8v6M8 11h6" />
-                    </svg>
+                <button
+                  type="button"
+                  aria-label={`Open image`}
+                  onClick={() => setLightboxIndex(index)}
+                  className="group relative block aspect-[4/3] w-full overflow-hidden rounded-lg border border-[#e0a458]/60 shadow-[0_0_20px_-10px_rgba(224,164,88,0.5)] transition lg:hover:border-[#e0a458]"
+                >
+                  <Image
+                    src={image.src}
+                    alt={image.alt}
+                    fill
+                    sizes="(min-width: 1024px) 25vw, 50vw"
+                    className="object-cover transition duration-700 lg:group-hover:scale-110"
+                  />
+                  <span className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 transition duration-300 lg:group-hover:opacity-100">
+                    <span className="flex h-12 w-12 items-center justify-center rounded-full border border-[#e0a458] bg-black/40 text-[#e0a458]">
+                      <svg
+                        aria-hidden="true"
+                        viewBox="0 0 24 24"
+                        className="h-5 w-5"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth={2}
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <circle cx="11" cy="11" r="7" />
+                        <path d="m20 20-3.5-3.5M11 8v6M8 11h6" />
+                      </svg>
+                    </span>
                   </span>
-                </span>
-              </button>
+                </button>
               </StaggerItem>
             ))}
           </Stagger>
@@ -283,7 +353,12 @@ export default function ServiceDetails({ service }: { service: ServiceDetail }) 
 
       <AnimatePresence>
         {lightboxIndex !== null && (
-          <Lightbox images={process.images} index={lightboxIndex} onClose={closeLightbox} onChange={changeLightbox} />
+          <Lightbox
+            images={process.images}
+            index={lightboxIndex}
+            onClose={closeLightbox}
+            onChange={changeLightbox}
+          />
         )}
       </AnimatePresence>
     </>

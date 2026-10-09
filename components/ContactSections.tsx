@@ -182,8 +182,8 @@ export function ContactMapSection({ data: map }: { data: ContactPageData["map"] 
           className="mt-10 overflow-hidden rounded-2xl border border-[#e0a458]/60 shadow-[0_0_40px_-15px_rgba(224,164,88,0.5)]"
         >
           <iframe
-            src={map.embedUrl}
-            title={map.title}
+            src="https://maps.google.com/maps?q=usa&t=&z=4&ie=UTF8&iwloc=&output=embed"
+            title="USA Map"
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
             allowFullScreen

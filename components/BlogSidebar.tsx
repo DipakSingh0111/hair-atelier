@@ -89,7 +89,7 @@ export default function BlogSidebar({
           {categories.map((category) => (
             <li key={category.name}>
               <Link
-                href={`/blogs/${category.posts[0].slug}`}
+                href={`/blogs/category/${category.name.toLowerCase().replace(/ /g, "-")}`}
                 className="group flex w-full items-center justify-between py-3 text-left text-sm text-white/85 transition hover:text-[#e0a458]"
               >
                 <span className="flex items-center gap-2">{category.name}</span>

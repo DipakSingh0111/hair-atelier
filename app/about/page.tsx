@@ -10,7 +10,8 @@ import type { HairAtelierTemplateData } from "@/types/hair-atelier.types";
 const templateData: HairAtelierTemplateData = rawData;
 const sectionData = templateData.categories.HairAtelier.sections;
 
-const { about } = sectionData.PageBanners.variants.HairAtelierPageBanners1.pages;
+const { about } =
+  sectionData.PageBanners.variants.HairAtelierPageBanners1.pages;
 
 export const metadata: Metadata = {
   title: about.metaTitle,
@@ -25,9 +26,12 @@ export default function AboutPage() {
         breadcrumbs={about.banner.breadcrumbs}
       />
       <AboutSection data={sectionData.AboutUs.variants.HairAtelierAboutUs1} />
-      <StatsSection data={sectionData.Stats.variants.HairAtelierStats1} />
-      <WhyChooseSection data={sectionData.WhyChooseUs.variants.HairAtelierWhyChooseUs1} />
-      <TestimonialsSection data={sectionData.Testimonials.variants.HairAtelierTestimonials1} />
+      <WhyChooseSection
+        data={sectionData.WhyChooseUs.variants.HairAtelierWhyChooseUs1}
+      />
+      <TestimonialsSection
+        data={sectionData.Testimonials.variants.HairAtelierTestimonials1}
+      />
     </main>
   );
 }

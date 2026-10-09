@@ -66,7 +66,7 @@ export default function HeroSection({ data }: { data: HeroBannerData }) {
     <section
       aria-roledescription="carousel"
       aria-label="Hero"
-      className="relative h-[560px] w-full overflow-hidden bg-black sm:h-[620px] lg:h-[680px]"
+      className="relative w-full overflow-hidden bg-black min-h-[550px] sm:min-h-[650px] lg:min-h-[750px] h-[100vh]"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
@@ -109,7 +109,7 @@ export default function HeroSection({ data }: { data: HeroBannerData }) {
                 >
                   {slide.badge}
                 </motion.p>
-                <h1 className="font-serif text-5xl leading-[1.05] uppercase sm:text-6xl lg:text-7xl">
+                <h1 className="font-serif text-4xl leading-[1.05] uppercase sm:text-5xl lg:text-6xl xl:text-7xl">
                   <motion.span variants={textItem} className="block text-white">
                     {slide.heading.main}
                   </motion.span>

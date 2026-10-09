@@ -2136,28 +2136,28 @@
                   },
                   "list": [
                     {
-                      "label": "Haircut & Styling",
+                      "label": "Signature Haircut",
                       "href": "/services/signature-haircut"
+                    },
+                    {
+                      "label": "Hair Styling",
+                      "href": "/services/hair-styling"
+                    },
+                    {
+                      "label": "Hair Spa Therapy",
+                      "href": "/services/hair-spa-therapy"
                     },
                     {
                       "label": "Hair Coloring",
                       "href": "/services/hair-coloring"
                     },
                     {
-                      "label": "Hair Treatments",
-                      "href": "/services/hair-treatments"
+                      "label": "Skin Grooming",
+                      "href": "/services/skin-grooming"
                     },
                     {
-                      "label": "Keratin & Smoothening",
-                      "href": "/services/keratin-smoothening"
-                    },
-                    {
-                      "label": "Bridal & Party Styling",
-                      "href": "/services/bridal-party-styling"
-                    },
-                    {
-                      "label": "Hair Spa & Care",
-                      "href": "/services/hair-spa-therapy"
+                      "label": "Personal Consultation",
+                      "href": "/services/personal-consultation"
                     }
                   ]
                 }

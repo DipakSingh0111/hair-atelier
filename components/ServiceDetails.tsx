@@ -163,7 +163,7 @@ export default function ServiceDetails({ service, overviewBadge, processBadge }:
 
   return (
     <>
-      <section className="bg-black py-16 lg:py-24">
+      <section className="bg-black pt-8 pb-16 lg:pt-10 lg:pb-24">
         <div className="mx-auto grid max-w-7xl items-center gap-14 px-6 lg:grid-cols-[1fr_1.1fr] lg:px-10">
           <Reveal
             direction="right"

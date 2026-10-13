@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Stagger, StaggerItem } from "@/components/ui/motion";
-import type { FooterData, Heading } from "@/types/hair-atelier.types";
+import type { Heading, SectionProps } from "@/types/hair-atelier.types";
 
 const socialIcons: Record<string, React.ReactNode> = {
   facebook: <path d="M14 8h3V4h-3a4 4 0 0 0-4 4v2H8v4h2v7h4v-7h3l1-4h-4V8z" />,
@@ -70,7 +70,7 @@ function ColumnTitle({ heading }: { heading: Heading }) {
   );
 }
 
-export default function Footer({ data }: { data: FooterData }) {
+export default function Footer({ data }: SectionProps<"Footer">) {
   const { logo, description, socials, columns, contact, copyright } = data;
 
   return (

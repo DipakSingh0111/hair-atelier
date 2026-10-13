@@ -5,11 +5,11 @@ import Image from "next/image";
 import { AnimatePresence } from "framer-motion";
 import { Reveal, Stagger, StaggerItem } from "@/components/ui/motion";
 import Lightbox from "@/components/common/Lightbox";
-import type { GalleryData } from "@/types/hair-atelier.types";
+import type { SectionProps } from "@/types/hair-atelier.types";
 
 const rowGrid = ["sm:grid-cols-4", "sm:grid-cols-5"];
 
-export default function GallerySection({ data }: { data: GalleryData }) {
+export default function GallerySection({ data }: SectionProps<"Gallery">) {
   const { badge, heading, description, rows } = data;
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 

@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
-import type { HeaderData } from "@/types/hair-atelier.types";
+import type { SectionProps } from "@/types/hair-atelier.types";
 
 function ArrowIcon() {
   return (
@@ -24,7 +24,7 @@ function ArrowIcon() {
   );
 }
 
-export default function Navbar({ data }: { data: HeaderData }) {
+export default function Navbar({ data }: SectionProps<"Header">) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const { logo, menu: links, cta } = data;

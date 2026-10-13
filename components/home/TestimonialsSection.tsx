@@ -9,7 +9,7 @@ import {
 } from "react";
 import Image from "next/image";
 import { Reveal } from "@/components/ui/motion";
-import type { TestimonialsData } from "@/types/hair-atelier.types";
+import type { SectionProps } from "@/types/hair-atelier.types";
 
 const breakpoints = [
   { query: "(min-width: 1024px)", perView: 3 },
@@ -67,7 +67,9 @@ function Stars({ count }: { count: number }) {
   );
 }
 
-export default function TestimonialsSection({ data }: { data: TestimonialsData }) {
+export default function TestimonialsSection({
+  data,
+}: SectionProps<"Testimonials">) {
   const { badge, heading, description, autoplayInterval, list: testimonials } = data;
   const perView = useSyncExternalStore(subscribe, getPerView, () => 3);
   const maxIndex = Math.max(testimonials.length - perView, 0);

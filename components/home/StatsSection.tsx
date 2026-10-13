@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { Stagger, StaggerItem } from "@/components/ui/motion";
-import type { StatsData } from "@/types/hair-atelier.types";
+import type { SectionProps } from "@/types/hair-atelier.types";
 
 const icons: Record<string, React.ReactNode> = {
   users: (
@@ -99,7 +99,7 @@ function CountUp({
   );
 }
 
-export default function StatsSection({ data }: { data: StatsData }) {
+export default function StatsSection({ data }: SectionProps<"Stats">) {
   const { badge, heading, description, background, list: stats } = data;
 
   return (

@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 import Image from "next/image";
 import EnquiryForm from "@/components/common/EnquiryForm";
 import { Reveal, Stagger, StaggerItem } from "@/components/ui/motion";
-import type { QuotePageData } from "@/types/hair-atelier.types";
+import type { SectionProps } from "@/types/hair-atelier.types";
 
 const icons: Record<string, ReactNode> = {
   scissors: (
@@ -32,7 +32,7 @@ const icons: Record<string, ReactNode> = {
   ),
 };
 
-export default function QuoteSection({ data }: { data: QuotePageData }) {
+export default function QuoteSection({ data }: SectionProps<"QuotePage">) {
   const { background, intro, form } = data;
 
   return (

@@ -2,10 +2,9 @@ import type { ReactNode } from "react";
 import BlogCard from "@/components/blog/BlogCard";
 import { DocumentIcon } from "@/components/blog/BlogIcons";
 import { Reveal, Stagger } from "@/components/ui/motion";
-import type { BlogNewsData } from "@/types/hair-atelier.types";
+import type { SectionProps } from "@/types/hair-atelier.types";
 
-type BlogsSectionProps = {
-  data: BlogNewsData;
+type BlogsSectionProps = SectionProps<"BlogNews"> & {
   limit?: number;
   children?: ReactNode;
   className?: string;

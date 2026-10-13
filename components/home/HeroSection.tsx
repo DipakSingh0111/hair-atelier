@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, type Variants } from "framer-motion";
-import type { HeroBannerData } from "@/types/hair-atelier.types";
+import type { SectionProps } from "@/types/hair-atelier.types";
 
 const textContainer: Variants = {
   hidden: { transition: { staggerChildren: 0.05, staggerDirection: -1 } },
@@ -46,7 +46,7 @@ function Chevron({ direction }: { direction: "left" | "right" }) {
   );
 }
 
-export default function HeroSection({ data }: { data: HeroBannerData }) {
+export default function HeroSection({ data }: SectionProps<"HeroBanner">) {
   const { slides, autoplayInterval } = data;
   const [current, setCurrent] = useState(0);
   const [paused, setPaused] = useState(false);

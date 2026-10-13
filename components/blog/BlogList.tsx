@@ -1,6 +1,6 @@
 import BlogCard from "@/components/blog/BlogCard";
 import { Stagger } from "@/components/ui/motion";
-import type { BlogNewsData, BlogPost } from "@/types/hair-atelier.types";
+import type { BlogPost, SectionProps } from "@/types/hair-atelier.types";
 
 type BlogGridProps = {
   posts: BlogPost[];
@@ -26,6 +26,6 @@ export function BlogGrid({ posts, readMoreLabel, emptyMessage }: BlogGridProps) 
   );
 }
 
-export default function BlogList({ data }: { data: BlogNewsData }) {
+export default function BlogList({ data }: SectionProps<"BlogNews">) {
   return <BlogGrid posts={data.posts} readMoreLabel={data.readMoreLabel} emptyMessage={data.emptyMessage} />;
 }

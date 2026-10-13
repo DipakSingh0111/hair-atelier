@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 import Image from "next/image";
 import EnquiryForm from "@/components/common/EnquiryForm";
 import { Reveal, Stagger, StaggerItem } from "@/components/ui/motion";
-import type { ContactPageData } from "@/types/hair-atelier.types";
+import type { SectionProps } from "@/types/hair-atelier.types";
 
 const icons: Record<string, ReactNode> = {
   location: (
@@ -51,7 +51,9 @@ function Eyebrow({
   );
 }
 
-export function ContactInfoCards({ data: infoCards }: { data: ContactPageData["infoCards"] }) {
+export function ContactInfoCards({
+  data: infoCards,
+}: SectionProps<"ContactInfoCards">) {
   return (
     <section className="border-b border-white/5 bg-black py-12">
       <Stagger
@@ -116,7 +118,9 @@ export function ContactInfoCards({ data: infoCards }: { data: ContactPageData["i
   );
 }
 
-export function ContactFormSection({ data: form }: { data: ContactPageData["form"] }) {
+export function ContactFormSection({
+  data: form,
+}: SectionProps<"ContactFormSection">) {
   const { badge, heading, description, image } = form;
 
   return (
@@ -164,7 +168,9 @@ export function ContactFormSection({ data: form }: { data: ContactPageData["form
   );
 }
 
-export function ContactMapSection({ data: map }: { data: ContactPageData["map"] }) {
+export function ContactMapSection({
+  data: map,
+}: SectionProps<"ContactMapSection">) {
   return (
     <section className="bg-black pb-20 lg:pb-28">
       <div className="mx-auto max-w-7xl px-6 lg:px-10">

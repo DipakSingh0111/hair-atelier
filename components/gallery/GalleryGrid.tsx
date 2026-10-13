@@ -5,7 +5,7 @@ import Image from "next/image";
 import { AnimatePresence, motion, type Variants } from "framer-motion";
 import { Reveal } from "@/components/ui/motion";
 import Lightbox from "@/components/common/Lightbox";
-import type { GalleryPageData } from "@/types/hair-atelier.types";
+import type { SectionProps } from "@/types/hair-atelier.types";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -48,7 +48,7 @@ function Arrow({
   );
 }
 
-export default function GalleryGrid({ data }: { data: GalleryPageData }) {
+export default function GalleryGrid({ data }: SectionProps<"GalleryPage">) {
   const { badge, heading, description, perPage, list: images } = data;
   const totalPages = Math.ceil(images.length / perPage);
   const [page, setPage] = useState(1);

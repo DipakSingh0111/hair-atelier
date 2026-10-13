@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Stagger, StaggerItem } from "@/components/ui/motion";
-import type { ServicesData } from "@/types/hair-atelier.types";
+import type { SectionProps } from "@/types/hair-atelier.types";
 
 const icons: Record<string, React.ReactNode> = {
   scissors: (
@@ -62,7 +62,7 @@ function Icon({ name, className }: { name: string; className?: string }) {
   );
 }
 
-export default function ServicesSection({ data }: { data: ServicesData }) {
+export default function ServicesSection({ data }: SectionProps<"Services">) {
   const { badge, heading, description, priceUnit, detailsLabel, list: services } = data;
 
   return (

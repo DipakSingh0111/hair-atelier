@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Reveal, Stagger, StaggerItem } from "@/components/ui/motion";
-import type { AboutUsData } from "@/types/hair-atelier.types";
+import type { SectionProps } from "@/types/hair-atelier.types";
 
 const icons: Record<string, React.ReactNode> = {
   users: (
@@ -27,7 +27,7 @@ const icons: Record<string, React.ReactNode> = {
   ),
 };
 
-export default function AboutSection({ data }: { data: AboutUsData }) {
+export default function AboutSection({ data }: SectionProps<"AboutUs">) {
   const { badge, heading, paragraphs, experience, images, features, cta } = data;
 
   return (

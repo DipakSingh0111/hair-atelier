@@ -1,5 +1,5 @@
 import { Reveal, Stagger, StaggerItem } from "@/components/ui/motion";
-import type { WhyChooseUsData } from "@/types/hair-atelier.types";
+import type { SectionProps } from "@/types/hair-atelier.types";
 
 const icons: Record<string, React.ReactNode> = {
   scissors: (
@@ -53,7 +53,9 @@ const icons: Record<string, React.ReactNode> = {
   ),
 };
 
-export default function WhyChooseSection({ data }: { data: WhyChooseUsData }) {
+export default function WhyChooseSection({
+  data,
+}: SectionProps<"WhyChooseUs">) {
   const { badge, heading, description, list: features } = data;
 
   return (

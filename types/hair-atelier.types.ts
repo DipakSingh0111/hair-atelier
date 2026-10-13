@@ -325,6 +325,36 @@ export interface TemplateComponents {
   };
 }
 
+export interface HairAtelierSections {
+  Global: GlobalData;
+  Header: HeaderData;
+  PageBanners: PageBannersData;
+  HeroBanner: HeroBannerData;
+  AboutUs: AboutUsData;
+  Services: ServicesData;
+  WhyChooseUs: WhyChooseUsData;
+  Stats: StatsData;
+  Gallery: GalleryData;
+  GalleryPage: GalleryPageData;
+  Testimonials: TestimonialsData;
+  BlogNews: BlogNewsData;
+  ContactPage: ContactPageData;
+  ContactInfoCards: ContactPageData["infoCards"];
+  ContactFormSection: ContactPageData["form"];
+  ContactMapSection: ContactPageData["map"];
+  QuotePage: QuotePageData;
+  ThankYouPage: ThankYouPageData;
+  Footer: FooterData;
+  EnquiryForm: EnquiryFormContent;
+  BlogSidebar: BlogSidebarData;
+}
+
+export type SectionKey = keyof HairAtelierSections;
+
+export type SectionProps<K extends SectionKey = SectionKey> = {
+  data: HairAtelierSections[K];
+};
+
 export interface HairAtelierTemplateData {
   categories: {
     HairAtelier: {

@@ -9,7 +9,7 @@ import {
 } from "@/components/blog/BlogIcons";
 import { formatBlogDate } from "@/components/blog/BlogCard";
 import { Stagger, StaggerItem } from "@/components/ui/motion";
-import type { BlogPost, BlogSidebarData } from "@/types/hair-atelier.types";
+import type { BlogPost, SectionProps } from "@/types/hair-atelier.types";
 
 function Widget({ title, children }: { title: string; children: ReactNode }) {
   return (
@@ -28,8 +28,7 @@ export default function BlogSidebar({
   data: sidebar,
   posts,
   currentSlug,
-}: {
-  data: BlogSidebarData;
+}: SectionProps<"BlogSidebar"> & {
   posts: BlogPost[];
   currentSlug?: string;
 }) {

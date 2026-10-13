@@ -1,5 +1,5 @@
-import BlogCard from "@/components/BlogCard";
-import { Stagger } from "@/components/motion";
+import BlogCard from "@/components/blog/BlogCard";
+import { Stagger } from "@/components/ui/motion";
 import type { BlogNewsData, BlogPost } from "@/types/hair-atelier.types";
 
 type BlogGridProps = {

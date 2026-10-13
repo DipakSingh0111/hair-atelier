@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Reveal, Stagger, StaggerItem } from "@/components/motion";
+import { Reveal, Stagger, StaggerItem } from "@/components/ui/motion";
 import type { AboutUsData } from "@/types/hair-atelier.types";
 
 const icons: Record<string, React.ReactNode> = {

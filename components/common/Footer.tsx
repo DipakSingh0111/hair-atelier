@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Stagger, StaggerItem } from "@/components/motion";
+import { Stagger, StaggerItem } from "@/components/ui/motion";
 import type { FooterData, Heading } from "@/types/hair-atelier.types";
 
 const socialIcons: Record<string, React.ReactNode> = {

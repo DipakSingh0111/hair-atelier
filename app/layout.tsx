@@ -4,9 +4,9 @@ import {
   Montserrat,
   Playfair_Display,
 } from "next/font/google";
-import Footer from "@/components/Footer";
-import { MotionProvider } from "@/components/motion";
-import Navbar from "@/components/Navbar";
+import Footer from "@/components/common/Footer";
+import { MotionProvider } from "@/components/ui/motion";
+import Navbar from "@/components/common/Navbar";
 import rawData from "@/data/hair-atelier.json";
 import type { HairAtelierTemplateData } from "@/types/hair-atelier.types";
 import "./globals.css";

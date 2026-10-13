@@ -1,8 +1,8 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { BlogGrid } from "@/components/BlogList";
-import BlogsSection from "@/components/BlogsSection";
-import PageBanner from "@/components/PageBanner";
+import { BlogGrid } from "@/components/blog/BlogList";
+import BlogsSection from "@/components/home/BlogsSection";
+import PageBanner from "@/components/common/PageBanner";
 import rawData from "@/data/hair-atelier.json";
 import type { HairAtelierTemplateData } from "@/types/hair-atelier.types";
 

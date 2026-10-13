@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { CalendarIcon, ChevronRightIcon } from "@/components/BlogIcons";
+import { CalendarIcon, ChevronRightIcon } from "@/components/blog/BlogIcons";
 
 export type CategoryPost = {
   slug: string;

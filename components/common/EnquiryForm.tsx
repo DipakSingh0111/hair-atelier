@@ -85,7 +85,7 @@ export default function EnquiryForm({
   const router = useRouter();
   const [values, setValues] = useState<Values>(initialValues);
   const [errors, setErrors] = useState<Errors>({});
-  const [submitting, setSubmitting] = useState(false);
+  const [submitting, setSubmiting] = useState(false);
   const [dateFocused, setDateFocused] = useState(false);
 
   const validate = (): Errors => {
@@ -110,7 +110,7 @@ export default function EnquiryForm({
     const found = validate();
     setErrors(found);
     if (Object.keys(found).length > 0) return;
-    setSubmitting(true);
+    setSubmiting(true);
     await new Promise((resolve) => setTimeout(resolve, 1200));
     router.push(redirectTo);
   };

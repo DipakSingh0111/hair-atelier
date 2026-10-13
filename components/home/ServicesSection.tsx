@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Stagger, StaggerItem } from "@/components/motion";
+import { Stagger, StaggerItem } from "@/components/ui/motion";
 import type { ServicesData } from "@/types/hair-atelier.types";
 
 const icons: Record<string, React.ReactNode> = {

@@ -8,7 +8,7 @@ import {
   useSyncExternalStore,
 } from "react";
 import Image from "next/image";
-import { Reveal } from "@/components/motion";
+import { Reveal } from "@/components/ui/motion";
 import type { TestimonialsData } from "@/types/hair-atelier.types";
 
 const breakpoints = [

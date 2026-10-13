@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import Image from "next/image";
-import EnquiryForm from "@/components/EnquiryForm";
-import { Reveal, Stagger, StaggerItem } from "@/components/motion";
+import EnquiryForm from "@/components/common/EnquiryForm";
+import { Reveal, Stagger, StaggerItem } from "@/components/ui/motion";
 import type { QuotePageData } from "@/types/hair-atelier.types";
 
 const icons: Record<string, ReactNode> = {

@@ -32,7 +32,7 @@ export async function GET() {
     // Delete the JS files
     const scripts = ['replaceImages.js', 'combine.js'];
     for (const script of scripts) {
-      const scriptPath = path.join(process.cwd(), script);
+      const scriptPath = path.join(/*turbopackIgnore: true*/ process.cwd(), script);
       if (fs.existsSync(scriptPath)) {
         fs.unlinkSync(scriptPath);
       }

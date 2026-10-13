@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import BlogList from "@/components/BlogList";
-import PageBanner from "@/components/PageBanner";
-import BlogsSection from "@/components/BlogsSection";
+import BlogList from "@/components/blog/BlogList";
+import PageBanner from "@/components/common/PageBanner";
+import BlogsSection from "@/components/home/BlogsSection";
 import rawData from "@/data/hair-atelier.json";
 import type { HairAtelierTemplateData } from "@/types/hair-atelier.types";
 

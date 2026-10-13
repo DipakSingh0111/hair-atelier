@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { Stagger, StaggerItem } from "@/components/motion";
-import ThankYouCheck from "@/components/ThankYouCheck";
+import { Stagger, StaggerItem } from "@/components/ui/motion";
+import ThankYouCheck from "@/components/common/ThankYouCheck";
 import rawData from "@/data/hair-atelier.json";
 import type { HairAtelierTemplateData } from "@/types/hair-atelier.types";
 

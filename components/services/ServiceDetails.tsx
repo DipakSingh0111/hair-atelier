@@ -2,8 +2,8 @@
 
 import { Fragment, type ReactNode, useState, useCallback } from "react";
 import Image from "next/image";
-import { Reveal, Stagger, StaggerItem } from "@/components/motion";
-import Lightbox from "@/components/Lightbox";
+import { Reveal, Stagger, StaggerItem } from "@/components/ui/motion";
+import Lightbox from "@/components/common/Lightbox";
 import { AnimatePresence } from "framer-motion";
 import type { ServiceDetail } from "@/types/hair-atelier.types";
 

@@ -1,10 +1,10 @@
-import AboutSection from "@/components/AboutSection";
-import BlogsSection from "@/components/BlogsSection";
-import GallerySection from "@/components/GallerySection";
-import HeroSection from "@/components/HeroSection";
-import ServicesSection from "@/components/ServicesSection";
-import StatsSection from "@/components/StatsSection";
-import TestimonialsSection from "@/components/TestimonialsSection";
+import AboutSection from "@/components/home/AboutSection";
+import BlogsSection from "@/components/home/BlogsSection";
+import GallerySection from "@/components/home/GallerySection";
+import HeroSection from "@/components/home/HeroSection";
+import ServicesSection from "@/components/home/ServicesSection";
+import StatsSection from "@/components/home/StatsSection";
+import TestimonialsSection from "@/components/home/TestimonialsSection";
 import rawData from "@/data/hair-atelier.json";
 import type { HairAtelierTemplateData } from "@/types/hair-atelier.types";
 

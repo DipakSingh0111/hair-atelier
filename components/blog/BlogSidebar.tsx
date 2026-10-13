@@ -6,9 +6,9 @@ import {
   CalendarIcon,
   ChevronRightIcon,
   CrownIcon,
-} from "@/components/BlogIcons";
-import { formatBlogDate } from "@/components/BlogCard";
-import { Stagger, StaggerItem } from "@/components/motion";
+} from "@/components/blog/BlogIcons";
+import { formatBlogDate } from "@/components/blog/BlogCard";
+import { Stagger, StaggerItem } from "@/components/ui/motion";
 import type { BlogPost, BlogSidebarData } from "@/types/hair-atelier.types";
 
 function Widget({ title, children }: { title: string; children: ReactNode }) {

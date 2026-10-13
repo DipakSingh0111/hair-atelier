@@ -1,4 +1,4 @@
-import { Reveal, Stagger, StaggerItem } from "@/components/motion";
+import { Reveal, Stagger, StaggerItem } from "@/components/ui/motion";
 import type { WhyChooseUsData } from "@/types/hair-atelier.types";
 
 const icons: Record<string, React.ReactNode> = {

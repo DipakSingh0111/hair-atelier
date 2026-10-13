@@ -4,7 +4,7 @@ import { useCallback, useEffect } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 
-type GalleryImage = { src: string; alt: string };
+export type GalleryImage = { src: string; alt: string };
 
 function Arrow({ direction, className = "h-4 w-4" }: { direction: "left" | "right"; className?: string }) {
   return (

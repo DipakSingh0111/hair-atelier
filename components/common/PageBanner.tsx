@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Reveal } from "@/components/motion";
+import { Reveal } from "@/components/ui/motion";
 
 export type Breadcrumb = { label: string; href?: string };
 

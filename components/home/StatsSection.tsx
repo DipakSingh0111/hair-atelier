@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { Stagger, StaggerItem } from "@/components/motion";
+import { Stagger, StaggerItem } from "@/components/ui/motion";
 import type { StatsData } from "@/types/hair-atelier.types";
 
 const icons: Record<string, React.ReactNode> = {

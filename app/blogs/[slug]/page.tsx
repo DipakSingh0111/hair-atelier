@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { CalendarIcon } from "@/components/BlogIcons";
-import BlogSidebar from "@/components/BlogSidebar";
-import { Reveal } from "@/components/motion";
-import { formatBlogDate } from "@/components/BlogCard";
-import PageBanner from "@/components/PageBanner";
+import { CalendarIcon } from "@/components/blog/BlogIcons";
+import BlogSidebar from "@/components/blog/BlogSidebar";
+import { Reveal } from "@/components/ui/motion";
+import { formatBlogDate } from "@/components/blog/BlogCard";
+import PageBanner from "@/components/common/PageBanner";
 import rawData from "@/data/hair-atelier.json";
 import type { HairAtelierTemplateData } from "@/types/hair-atelier.types";
 

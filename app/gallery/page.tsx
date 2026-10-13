@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import GalleryGrid from "@/components/GalleryGrid";
-import PageBanner from "@/components/PageBanner";
+import GalleryGrid from "@/components/gallery/GalleryGrid";
+import PageBanner from "@/components/common/PageBanner";
 import rawData from "@/data/hair-atelier.json";
 import type { HairAtelierTemplateData } from "@/types/hair-atelier.types";
 

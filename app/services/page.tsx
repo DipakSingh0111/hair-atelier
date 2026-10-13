@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import PageBanner from "@/components/PageBanner";
-import ServicesSection from "@/components/ServicesSection";
+import PageBanner from "@/components/common/PageBanner";
+import ServicesSection from "@/components/home/ServicesSection";
 import rawData from "@/data/hair-atelier.json";
 import type { HairAtelierTemplateData } from "@/types/hair-atelier.types";
 

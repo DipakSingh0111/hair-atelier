@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
-import BlogCard from "@/components/BlogCard";
-import { DocumentIcon } from "@/components/BlogIcons";
-import { Reveal, Stagger } from "@/components/motion";
+import BlogCard from "@/components/blog/BlogCard";
+import { DocumentIcon } from "@/components/blog/BlogIcons";
+import { Reveal, Stagger } from "@/components/ui/motion";
 import type { BlogNewsData } from "@/types/hair-atelier.types";
 
 type BlogsSectionProps = {

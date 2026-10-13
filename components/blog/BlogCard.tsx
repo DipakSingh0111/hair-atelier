@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import { CalendarIcon, LongArrowIcon } from "@/components/BlogIcons";
-import { StaggerItem } from "@/components/motion";
+import { CalendarIcon, LongArrowIcon } from "@/components/blog/BlogIcons";
+import { StaggerItem } from "@/components/ui/motion";
 import type { BlogPost } from "@/types/hair-atelier.types";
 
 const dateFormatter = new Intl.DateTimeFormat("en-US", {

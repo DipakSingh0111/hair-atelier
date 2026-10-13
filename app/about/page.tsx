@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import AboutSection from "@/components/AboutSection";
-import PageBanner from "@/components/PageBanner";
-import StatsSection from "@/components/StatsSection";
-import TestimonialsSection from "@/components/TestimonialsSection";
-import WhyChooseSection from "@/components/WhyChooseSection";
+import AboutSection from "@/components/home/AboutSection";
+import PageBanner from "@/components/common/PageBanner";
+import StatsSection from "@/components/home/StatsSection";
+import TestimonialsSection from "@/components/home/TestimonialsSection";
+import WhyChooseSection from "@/components/home/WhyChooseSection";
 import rawData from "@/data/hair-atelier.json";
 import type { HairAtelierTemplateData } from "@/types/hair-atelier.types";
 

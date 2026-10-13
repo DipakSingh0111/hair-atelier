@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import PageBanner from "@/components/PageBanner";
-import ServiceDetails from "@/components/ServiceDetails";
+import PageBanner from "@/components/common/PageBanner";
+import ServiceDetails from "@/components/services/ServiceDetails";
 import rawData from "@/data/hair-atelier.json";
 import type { HairAtelierTemplateData } from "@/types/hair-atelier.types";
 

@@ -3,8 +3,8 @@ import {
   ContactFormSection,
   ContactInfoCards,
   ContactMapSection,
-} from "@/components/ContactSections";
-import PageBanner from "@/components/PageBanner";
+} from "@/components/contact/ContactSections";
+import PageBanner from "@/components/common/PageBanner";
 import rawData from "@/data/hair-atelier.json";
 import type { HairAtelierTemplateData } from "@/types/hair-atelier.types";
 

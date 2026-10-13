@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import PageBanner from "@/components/PageBanner";
-import QuoteSection from "@/components/QuoteSection";
+import PageBanner from "@/components/common/PageBanner";
+import QuoteSection from "@/components/quote/QuoteSection";
 import rawData from "@/data/hair-atelier.json";
 import type { HairAtelierTemplateData } from "@/types/hair-atelier.types";
 
